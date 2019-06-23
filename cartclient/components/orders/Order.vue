@@ -1,0 +1,85 @@
+<template >
+  <tr>
+    <td>
+      #{{order.id}}
+    </td>
+    <td>
+      {{order.created_at}}
+    </td>
+    <td>
+      <div v-for="variation in products" :key="variation.id">
+        <nuxt-link
+        :to="{
+          name: 'products-slug'
+          params:{
+            slug: variation.product.slug
+          }
+          }"
+        >
+          {{variation.product.name}}({{variation.name}}) --- {{variation.type}}
+        </nuxt-link>
+
+         <a href=""> {{}}</a>
+      </div>
+      <template v-if="moreProducts > 0">
+        and {{moreProducts}} more
+      </template>
+    </td>
+    <td>{{order.subtotal}}</td>
+    <td>
+      <span
+       class="tag is-medium "
+       :class="{
+         'is-success' : this.order.status === 'complete',
+         'is-info' : this.order.status === 'processing'||this.order.status === 'pending',
+         'is-danger' : this.order.status === 'payment_failed'
+         }"
+       >
+        {{orders.status}}
+      </span>
+      <component :is="order.status" />
+    </td>
+  </tr>
+</template>
+
+
+<script>
+import OrderStatusPaymentFailed from '@/components/orders/status/OrderStatus-PaymentFailed.vue'
+import OrderStatusPending from '@/components/orders/status/OrderStatus-Pending.vue'
+import OrderStatusProcessing from '@/components/orders/status/OrderStatus-Processing.vue'
+import OrderStatusCompleted from '@/components/orders/status/OrderStatus-Completed.vue'
+
+export default {
+  components: {
+    'payment_failed': OrderStatusPaymentFailed,
+    'pending': OrderStatusPending,
+    'processing': OrderStatusProcessing,
+    'completed': OrderStatusCompleted
+  },
+
+  data(){
+    return {
+      maxProducts: 2
+    }
+  },
+
+    props:{
+        order:{
+          required:true,
+          type: Object
+        }
+
+  },
+
+  computed:{
+    products(){
+      return this.order.products.slice(0, this.maxProducts)
+    },
+
+    moreProducts(){
+      return this.order.products.length - this.maxProducts
+    }
+  }
+
+}
+</script>

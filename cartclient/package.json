@@ -1,0 +1,39 @@
+{
+  "name": "cartclient",
+  "version": "1.0.0",
+  "description": "Nuxt.js project",
+  "author": "Vincent Gu",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt  --watch --watch-poll",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint",
+    "windows": ".nuxt/components/nuxt.js --watch"
+  },
+  "dependencies": {
+    "@nuxtjs/auth": "^4.6.6",
+    "@nuxtjs/axios": "^5.5.4",
+    "bulma": "^0.7.5",
+    "node-sass": "^4.12.0",
+    "nuxt": "^2.8.0",
+    "query-string": "^6.7.0",
+    "sass-loader": "^7.1.0",
+    "watch": "^1.0.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^4.19.1",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-vue": "^4.0.0"
+  },
+  "config": {
+    "nuxt": {
+      "host": "localhost",
+      "port": "3000"
+    }
+  }
+}
